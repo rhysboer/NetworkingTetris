@@ -5,8 +5,8 @@
 #define PLAYER_1_POS_X 3.0f
 #define PLAYER_1_POS_Y 2.0f
 
-#define	PLAYER_2_POS_X 12.0f
-#define PLAYER_2_POS_Y 2.0f
+#define	PLAYER_2_POS_X 6.0f
+#define PLAYER_2_POS_Y 3.0f
 
 // TEST
 struct Position {

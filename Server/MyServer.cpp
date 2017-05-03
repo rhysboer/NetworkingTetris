@@ -247,6 +247,8 @@ void MyServer::UpdatePlayerStats(RakNet::Packet * packet) {
 		out.Write(m_playerOne.currPos.y);
 		out.Write(m_playerOne.currRotate);
 
+		printf("Client %i: Position(X: %i, Y: %i)\n", clientID, (int)m_playerOne.currPos.x, (int)m_playerOne.currPos.y);
+
 		break;
 	}
 	case 2: 
@@ -260,6 +262,8 @@ void MyServer::UpdatePlayerStats(RakNet::Packet * packet) {
 		out.Write(m_playerTwo.currPos.x);
 		out.Write(m_playerTwo.currPos.y);
 		out.Write(m_playerTwo.currRotate);
+
+		printf("Client %i: Position(X: %i, Y: %i)\n", clientID, (int)m_playerTwo.currPos.x, (int)m_playerTwo.currPos.y);
 
 		break;
 	}

@@ -213,7 +213,7 @@ bool Board::SideCollisionCheck(sf::Vector2f position) {
 }
 
 // CHECK FOR COLLISONS WITH OTHER BLOCKS
-// CHANGE TO BLOCK SHAPE INSTEAD OF SHAPE BASE
+/* Params (Current Block, Block Position Offset) | Return (True if collision & False no if collision) */
 bool Board::BlockCollisionCheck(Shapes::ShapeBase block, sf::Vector2f offset) {
 	sf::Vector2f position;// = m_blockPosition + offset;
 	Piece* piece;
@@ -221,12 +221,19 @@ bool Board::BlockCollisionCheck(Shapes::ShapeBase block, sf::Vector2f offset) {
 	for (int i = 0; i < 4; i++) {
 		position = block.m_currShape[i] + (m_blockPosition + offset);
 		piece = PositionInGrid(sf::Vector2f(position));
-		if (piece == nullptr) return true;
-		if (piece->GetStatus() != CurrentStatus::PLAYER){
-			if (piece->GetStatus() != CurrentStatus::EMPTY) {
-				return true;
-			}
+		if (piece == nullptr) return true; 
+
+		// if (piece->GetStatus() != CurrentStatus::PLAYER) { // Not colliding withself
+		// 	if (piece->GetStatus() != CurrentStatus::EMPTY) { // Not colliding with nothing
+		// 		// COLLISION!
+		// 		return true;
+		// 	}
+		// }
+
+		if(piece->GetStatus() == CurrentStatus::FILLED) {
+			return true;
 		}
+
 	}
 
 	return false;
@@ -336,16 +343,21 @@ void Board::GetPlayer2Position() {
 		if(pos.m_y < m_player2.m_blockPosition.y) {
 			// If new position is 'higher' than the last poisiton, player 2 must have a new block
 
+			// Removed other players piece for client
+			MyClient::ClearOthersPiece();
+			PlacePlayer2Piece();
+
 			delete m_player2.m_block;
 			m_player2.m_block = nullptr;
-
 			m_player2.m_blockPosition = sf::Vector2f(pos.m_x, pos.m_y);
-			MyClient::ClearOthersPiece();
+
 			GetPlayer2Block();
 
 			return;
 		}
 	}
+
+	printf("Update Pos X: %i, Y: %i\n", (int)pos.m_x, (int)pos.m_y);
 
 	if(pos.m_x != 0 && pos.m_y != 0) {
 		if(pos.m_y != m_player2.m_blockPosition.y || pos.m_x != m_player2.m_blockPosition.x) { //if(pos.m_x != m_player2.m_blockPosition.x || pos.m_y != m_player2.m_blockPosition.y) {
@@ -353,6 +365,7 @@ void Board::GetPlayer2Position() {
 		}
 
 		m_player2.m_blockPosition = sf::Vector2f(pos.m_x, pos.m_y);
+		// NOT REACHING HERE!
 	}
 }
 
