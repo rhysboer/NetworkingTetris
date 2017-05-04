@@ -149,7 +149,7 @@ Shapes::BlockType MyClient::GetOthersBlock() {
 }
 
 Position MyClient::GetOthersStartPos() {
-	if (m_instance->m_p2StartPos.m_x == 0 && m_instance->m_p2StartPos.m_y == 0) {
+	if (m_instance->m_p2StartPos.m_x == -1 && m_instance->m_p2StartPos.m_y == -1) {
 		//UserPacket packet(m_instance->GetClient()->GetClientID(), ID_CLIENT_REQUEST_OTHERS_START_POS);
 		//packet.SendPacket(m_instance->GetClient()->GetPeerInterface());
 		RakNet::BitStream bs;

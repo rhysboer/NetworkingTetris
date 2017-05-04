@@ -17,6 +17,10 @@ Board::Board(int size_x, int size_y) {
 		}
 	}
 
+	// DEBUG
+	m_font.loadFromFile("FONT HERE");
+
+
 	CreateNewPiece();
 }
 
@@ -24,7 +28,7 @@ Board::~Board() {
 }
 
 void Board::Update() {
-	if (m_startPos.x != 0 && m_startPos.y != 0 && MyClient::IsGameReady()) {
+	if (m_startPos.x != -1 && m_startPos.y != -1 && MyClient::IsGameReady()) {
 		// Drop the current piece down
 		DropPiece();
 		// Update Player 2 position (same thing as DropPiece();)
@@ -186,10 +190,10 @@ void Board::ClearLastSpotPlayer2() {
 	for(int i = 0; i < 4; i++) {
 		if(m_player2.m_block != nullptr) {
 			Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
-			if(piece->GetStatus() != CurrentStatus::FILLED) {
+			//if(piece->GetStatus() != CurrentStatus::FILLED) {
 				piece->ChangeColour(ShapeColour::Colour::EMPTY);
 				piece->SetStatus(CurrentStatus::EMPTY);
-			}
+			//}
 		}
 	}
 }
@@ -284,7 +288,7 @@ void Board::CreateNewPiece() {
 
 void Board::GetStartingPosition() {
 	Position pos = MyClient::GetStartPos();
-	if (pos.m_x != 0 && pos.m_y != 0) {
+	if (pos.m_x != -1 && pos.m_y != -1) {
 		m_startPos = sf::Vector2f(pos.m_x, pos.m_y);
 		m_blockPosition = m_startPos;
 	}
@@ -330,7 +334,7 @@ void Board::GetPlayer2Block() {
 void Board::GetPlayer2StartPos() {
 	// Get other players piece
 	Position pos = MyClient::GetOthersStartPos();
-	if (pos.m_x != 0 && pos.m_y != 0) {
+	if (pos.m_x != -1 && pos.m_y != -1) {
 		m_player2.m_startPos = sf::Vector2f(pos.m_x, pos.m_y);
 		m_player2.m_blockPosition = m_player2.m_startPos;
 	}
@@ -339,7 +343,7 @@ void Board::GetPlayer2StartPos() {
 void Board::GetPlayer2Position() {
 	// Get Player 2 Position
 	Position pos = MyClient::GetOthersPosition();
-	if(pos.m_x != 0 && pos.m_y != 0) {
+	if(pos.m_x != -1 && pos.m_y != -1) {
 		if(pos.m_y < m_player2.m_blockPosition.y) {
 			// If new position is 'higher' than the last poisiton, player 2 must have a new block
 
@@ -359,7 +363,7 @@ void Board::GetPlayer2Position() {
 
 	printf("Update Pos X: %i, Y: %i\n", (int)pos.m_x, (int)pos.m_y);
 
-	if(pos.m_x != 0 && pos.m_y != 0) {
+	if(pos.m_x != -1 && pos.m_y != -1) {
 		if(pos.m_y != m_player2.m_blockPosition.y || pos.m_x != m_player2.m_blockPosition.x) { //if(pos.m_x != m_player2.m_blockPosition.x || pos.m_y != m_player2.m_blockPosition.y) {
 			ClearLastSpotPlayer2();
 		}
@@ -410,3 +414,10 @@ void Board::SendServerNewPosition() {
 	packet.SendPacket(MyClient::GetClient()->GetPeerInterface());
 }
 
+
+
+void Board::ShowStatus() {
+	// Debug Status of the current piece
+
+
+}

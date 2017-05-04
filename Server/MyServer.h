@@ -11,7 +11,7 @@
 // TEST
 struct Position {
 	Position(float a_x, float a_y) { x = a_x; y = a_y; }
-	float x; float y;
+	float x = -1; float y = -1;
 };
 
 struct Player {
@@ -32,7 +32,6 @@ public:
 private:
 
 	void HandleMessages();
-
 
 	void SetStartPosition(RakNet::Packet* packet);	/* Set players start position */
 	void SetNewBlock(RakNet::Packet* packet);		/* Sets players new block */
@@ -68,7 +67,6 @@ private:
 
 	Player m_playerOne;
 	Player m_playerTwo;
-
 };
 
 /*

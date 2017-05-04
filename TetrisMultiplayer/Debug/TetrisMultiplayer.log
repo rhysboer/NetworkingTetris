@@ -15,5 +15,4 @@ c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(249): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(527): warning C4715: 'Shapes::GetNextRotation': not all control paths return a value
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(302): warning C4715: 'Shapes::GetShapeFromRotation': not all control paths return a value
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   TetrisMultiplayer.vcxproj -> C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Debug\TetrisMultiplayer.exe

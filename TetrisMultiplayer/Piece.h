@@ -10,8 +10,8 @@ enum class CurrentStatus {
 
 namespace ShapeColour {
 	enum class Colour {
-		NONE,
-		EMPTY,
+		NONE,	// No texture at all!
+		EMPTY,	// Empty Square (gray box/outline)
 		GREEN,
 		RED,
 		BLUE,
@@ -42,6 +42,9 @@ private:
 	sf::Sprite m_sprite;
 
 	Colour m_currentColour;
+	Colour m_prevColour;
+
 	CurrentStatus m_status = CurrentStatus::EMPTY;
+	CurrentStatus m_prevStatus = CurrentStatus::EMPTY;
 };
 

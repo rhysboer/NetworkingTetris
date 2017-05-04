@@ -51,12 +51,12 @@ private:
 
 	bool m_gameReady = false;
 
-	Position m_startPos = Position(0, 0);
+	Position m_startPos = Position(-1, -1);
 
 	// Player 2's block
 	Shapes::BlockType m_p2Shape = Shapes::BlockType::NONE;
-	Position m_p2StartPos = Position(0, 0);
-	Position m_p2Pos = Position(0, 0);
+	Position m_p2StartPos = Position(-1, -1);
+	Position m_p2Pos = Position(-1, -1);
 	unsigned int m_p2Rotation = 1;
 };
 

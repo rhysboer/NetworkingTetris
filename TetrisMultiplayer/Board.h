@@ -3,6 +3,7 @@
 #include "Piece.h"
 #include "ShapesArray.h"
 #include "DeltaTime.h"
+#include "SFML\Graphics\Font.hpp"
 
 #include "MyClient.h"
 #include "UserPacket.h"
@@ -35,7 +36,15 @@ public:
 
 	void DropPiece();
 
+
+	// DEBUG
+	void ShowStatus();
+
 private:
+	// DEBUG
+	sf::Font m_font;
+	// DEBUG
+
 
 	Piece* PositionInGrid(sf::Vector2f position);
 	Piece* PositionInGrid(int x, int y);

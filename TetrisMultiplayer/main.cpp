@@ -22,10 +22,6 @@ void main() {
 	bool run = false;
 	app->OnStartUp();
 
-
-
-	bool deletethis = false;
-
 	while (run == false) {
 		// Update Delta Time
 		sf::Time time = clock.restart();
