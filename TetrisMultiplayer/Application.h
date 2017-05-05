@@ -2,7 +2,7 @@
 #include "BaseApplication.h"
 #include "InputManager.h"
 #include "GameWindow.h"
-#include "Player.h"
+#include "Input.h"
 #include "Board.h"
 
 class Application : public BaseApplication {
@@ -22,7 +22,7 @@ private:
 	
 	Board* m_board;
 	GameWindow* m_window = nullptr;
-	Player* m_player = nullptr;
+	Input* m_player = nullptr;
 	
 };
 

@@ -19,7 +19,7 @@ struct Size {
 	int y;
 };
 
-struct Player2 {
+struct Player {
 	sf::Vector2f m_startPos = sf::Vector2f(0, 0);
 	sf::Vector2f m_blockPosition;
 	Shapes::ShapeBase* m_block = nullptr;
@@ -96,7 +96,7 @@ private:
 	bool m_readyPacketSent = false;
 
 	// Player 2
-	Player2 m_player2 = Player2();
+	Player m_player2 = Player();
 
 	// Time
 	float m_currTime = 0;

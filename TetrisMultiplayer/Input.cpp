@@ -1,15 +1,15 @@
-#include "Player.h"
+#include "Input.h"
 
 //Test
 #include "DeltaTime.h"
 
-Player::Player() {
+Input::Input() {
 }
 
-Player::~Player() {
+Input::~Input() {
 }
 
-void Player::Update(Board &board) {
+void Input::Update(Board &board) {
 	if (InputManager::KeyPressed(sf::Keyboard::A)) {
 		board.MovePiece(Direction::Left);
 	}else if (InputManager::KeyPressed(sf::Keyboard::D)) {

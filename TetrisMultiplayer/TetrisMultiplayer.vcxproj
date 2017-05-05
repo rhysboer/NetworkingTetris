@@ -159,7 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyClient.cpp" />
     <ClCompile Include="Piece.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Network\GameMessages.h" />
@@ -171,7 +171,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MyClient.h" />
     <ClInclude Include="Piece.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="ShapesArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
