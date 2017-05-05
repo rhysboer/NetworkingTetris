@@ -1,4 +1,4 @@
-﻿  main.cpp
+﻿  MyServer.cpp
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(189): warning C4018: '>': signed/unsigned mismatch
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(209): warning C4018: '>': signed/unsigned mismatch
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(227): warning C4018: '>': signed/unsigned mismatch
@@ -9,7 +9,7 @@ c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(550): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(561): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(572): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  MyServer.cpp
+  main.cpp
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(189): warning C4018: '>': signed/unsigned mismatch
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(209): warning C4018: '>': signed/unsigned mismatch
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(227): warning C4018: '>': signed/unsigned mismatch

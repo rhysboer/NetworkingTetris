@@ -29,9 +29,15 @@ public:
 	Piece(sf::Vector2f position, Colour texture, CurrentStatus status);
 	~Piece();
 
+	//test
+	void FillPiece(Colour colour);
+	void EmptyPiece();
+
 	void ChangeColour(Colour texture);
 	void Draw(sf::RenderWindow &render);
 	void SetStatus(CurrentStatus status);
+
+	Colour GetPrevColour();
 
 	CurrentStatus GetStatus();
 	sf::Vector2f GetPosition();

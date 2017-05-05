@@ -17,8 +17,10 @@ Board::Board(int size_x, int size_y) {
 		}
 	}
 
-	// DEBUG
-	m_font.loadFromFile("FONT HERE");
+
+	// DEBUG 
+	// load font
+	m_font.loadFromFile("bin/fonts/AdobeFanHeitiStd-Bold.otf");
 
 
 	CreateNewPiece();
@@ -27,7 +29,20 @@ Board::Board(int size_x, int size_y) {
 Board::~Board() {
 }
 
+// BUG CANT MOVE WHEN PLAYER 2 ISNT HERE
+
+/*
+Dont let the board hold the texture for the single piece
+make the player hold onto the texture piece
+*/
+
 void Board::Update() {
+	// DELETE AFTER
+	if(InputManager::KeyPressed(sf::Keyboard::T))
+		m_currTime = 1000.0f;
+	
+
+
 	if (m_startPos.x != -1 && m_startPos.y != -1 && MyClient::IsGameReady()) {
 		// Drop the current piece down
 		DropPiece();
@@ -35,13 +50,6 @@ void Board::Update() {
 		GetPlayer2Block();
 		GetPlayer2Position();
 		GetPlayer2Rotation();
-
-		// Draw Player 1
-		for (int i = 0; i < 4; i++) {
-			Piece* piece = PositionInGrid(m_block->m_currShape[i] + m_blockPosition);
-			piece->ChangeColour(m_block->m_colour);
-			piece->SetStatus(CurrentStatus::PLAYER);
-		}
 
 		// Draw Player 2
 		if(m_player2.m_block != nullptr) {
@@ -52,6 +60,12 @@ void Board::Update() {
 			}
 		}
 
+		// Draw Player 1
+		for(int i = 0; i < 4; i++) {
+			Piece* piece = PositionInGrid(m_block->m_currShape[i] + m_blockPosition);
+			piece->ChangeColour(m_block->m_colour);
+			piece->SetStatus(CurrentStatus::PLAYER);
+		}
 
 	} else {
 		SendServerNewPosition();
@@ -70,6 +84,9 @@ void Board::Draw(sf::RenderWindow & render) {
 	for (; iter != m_grid.end(); iter++) {
 		(*iter)->Draw(render);
 	}
+
+	// DEBUG
+	ShowStatus(render);
 }
 
 bool Board::MovePiece(Direction dire) {
@@ -416,8 +433,105 @@ void Board::SendServerNewPosition() {
 
 
 
-void Board::ShowStatus() {
+void Board::ShowStatus(sf::RenderWindow &render) {
 	// Debug Status of the current piece
+	sf::Text p1Name = sf::Text("Player One", m_font);
+	sf::Text p2Name = sf::Text("Player Two", m_font);
+
+	// Positions
+	for(int i = 0; i < 4; i++) {
+		// Player 1
+		sf::String blockPos = sf::String("Block ");
+		blockPos += std::to_string(i) + ": X ";
+		blockPos += std::to_string((int)(m_block->m_currShape[i].m_x + m_blockPosition.x)) + " | Y ";
+		blockPos += std::to_string((int)(m_block->m_currShape[i].m_y + m_blockPosition.y));
+
+		sf::Text text = sf::Text(blockPos, m_font);
+		text.setPosition(650, 30 + (i * 20));
+		text.setCharacterSize(12);
+
+		render.draw(text);
+		
+		// Player 2
+		if(m_player2.m_block != nullptr) {
+			blockPos = sf::String("Block ");
+			blockPos += std::to_string(i) + ": X ";
+			blockPos += std::to_string((int)(m_player2.m_block->m_currShape[i].m_x + m_player2.m_blockPosition.x)) + " | Y ";
+			blockPos += std::to_string((int)(m_player2.m_block->m_currShape[i].m_y + m_player2.m_blockPosition.y));
+
+			text = sf::Text(blockPos, m_font);
+			text.setPosition(850, 30 + (i * 20));
+			text.setCharacterSize(12);
+
+			render.draw(text);
+		}
+	}
+
+	// Returns the colours name in text
+	auto GetColourName = [](ShapeColour::Colour colour) -> sf::String {
+		switch(colour) {
+		case ShapeColour::Colour::NONE:		return sf::String("None");
+		case ShapeColour::Colour::EMPTY:	return sf::String("Empty");
+		case ShapeColour::Colour::GREEN:	return sf::String("Green");
+		case ShapeColour::Colour::RED:		return sf::String("Red");
+		case ShapeColour::Colour::BLUE:		return sf::String("Blue");
+		case ShapeColour::Colour::CYAN:		return sf::String("Cyan");
+		case ShapeColour::Colour::PURPLE:	return sf::String("Purple");
+		case ShapeColour::Colour::YELLOW:	return sf::String("Yellow");
+		case ShapeColour::Colour::ORANGE:	return sf::String("Orange");
+		}
+	};
 
 
+	// Debug Name
+	sf::Text name = sf::Text("Block Previous Colour", m_font);
+	name.setPosition(650, 150);
+	name.setCharacterSize(16);
+	render.draw(name);
+
+	name.setPosition(850, 150);
+	render.draw(name);
+
+	// Block Debug
+	for(int i = 0; i < 4; i++) {
+		// Player 1
+		Piece* piece = PositionInGrid(m_block->m_currShape[i] + m_blockPosition);
+		sf::String colour = sf::String("None");
+
+		if(piece != nullptr)
+			colour = GetColourName(piece->GetPrevColour());
+
+		sf::String prevColour = sf::String("Block ");
+		prevColour += std::to_string(i) += ": " + colour;
+
+		sf::Text out = sf::Text(prevColour, m_font);
+		out.setPosition(650, 170 + (i * 20));
+		out.setCharacterSize(12);
+
+		render.draw(out);
+
+		// Player 2
+		colour = "None";
+		if(m_player2.m_block != nullptr) {
+			piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
+			if(piece != nullptr) colour = GetColourName(piece->GetPrevColour());
+
+			prevColour = "Block" + std::to_string(i) + ": " + colour;
+
+			out = sf::Text(prevColour, m_font);
+			out.setPosition(850, 170 + (i * 20));
+			out.setCharacterSize(12);
+
+			render.draw(out);
+		}
+	}
+
+	p1Name.setPosition(650, 10);
+	p1Name.setCharacterSize(16);
+
+	p2Name.setPosition(850, 10);
+	p2Name.setCharacterSize(16);
+
+	render.draw(p1Name);
+	render.draw(p2Name);
 }

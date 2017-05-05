@@ -2,6 +2,8 @@
 
 Piece::Piece(sf::Vector2f position, Colour texture, CurrentStatus status) {
 	m_currentColour = Colour::NONE;
+	m_prevColour = Colour::EMPTY;
+
 	m_status = status;
 	LoadNewTexture(texture);
 
@@ -38,19 +40,39 @@ z = 2
 [b][b][b][z]	= PrevColour : None
 */
 
+////if(m_status == CurrentStatus::OTHER_P)
+//	if(colour != m_currentColour &&	colour != Colour::EMPTY)
+//		m_prevColour = m_currentColour;
+//
+////if(m_status == CurrentStatus::OTHER_P) {
+//	if(colour == Colour::EMPTY) {
+//		if(m_prevColour != Colour::EMPTY) {
+//			m_currentColour = m_prevColour;
+//			m_prevColour = Colour::EMPTY;
+//		}
+//	}
+////}
+
+
+void Piece::FillPiece(Colour colour) {
+	m_currentColour = colour;
+	m_status = CurrentStatus::FILLED;
+}
+
 void Piece::ChangeColour(Colour colour) {
-	//if(m_status == CurrentStatus::OTHER_P)
+	if(colour == m_currentColour) return;
+
+	if(m_status == CurrentStatus::OTHER_P)
 		if(colour != m_currentColour &&	colour != Colour::EMPTY)
 			m_prevColour = m_currentColour;
-
-	//if(m_status == CurrentStatus::OTHER_P) {
-		if(colour == Colour::EMPTY) {
+		else if(colour == Colour::EMPTY) {
 			if(m_prevColour != Colour::EMPTY) {
-				m_currentColour = m_prevColour;
+				//m_currentColour = m_prevColour;
+				LoadNewTexture(m_prevColour);
 				m_prevColour = Colour::EMPTY;
+				return;
 			}
 		}
-	//}
 
 	LoadNewTexture(colour);
 }
@@ -61,6 +83,10 @@ void Piece::Draw(sf::RenderWindow &render) {
 
 void Piece::SetStatus(CurrentStatus status) {
 	m_status = status;
+}
+
+Colour Piece::GetPrevColour() {
+	return m_prevColour;
 }
 
 CurrentStatus Piece::GetStatus() {

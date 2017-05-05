@@ -1,18 +1,2 @@
-﻿  Board.cpp
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(189): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(209): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(227): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(245): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(265): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(285): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(305): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(550): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(561): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(572): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(164): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(165): warning C4018: '>': signed/unsigned mismatch
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(173): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(249): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(527): warning C4715: 'Shapes::GetNextRotation': not all control paths return a value
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(302): warning C4715: 'Shapes::GetShapeFromRotation': not all control paths return a value
+﻿  Piece.cpp
   TetrisMultiplayer.vcxproj -> C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Debug\TetrisMultiplayer.exe

@@ -8,6 +8,8 @@
 #include "MyClient.h"
 #include "UserPacket.h"
 
+#include <string>
+
 enum class Direction {
 	Left, Right, Down
 };
@@ -38,7 +40,7 @@ public:
 
 
 	// DEBUG
-	void ShowStatus();
+	void ShowStatus(sf::RenderWindow &render);
 
 private:
 	// DEBUG
@@ -98,6 +100,6 @@ private:
 
 	// Time
 	float m_currTime = 0;
-	const float DROPSPEED = 1.0f; // 0.7f
+	const float DROPSPEED = 500.0f; // 0.7f
 };
 

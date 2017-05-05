@@ -148,10 +148,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Images.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Images.h" />
     <ClInclude Include="MyServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
