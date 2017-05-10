@@ -36,6 +36,7 @@ Dont let the board hold the texture for the single piece
 make the player hold onto the texture piece
 */
 
+/* Update Every Frame */
 void Board::Update() {
 	// DELETE AFTER
 	if(InputManager::KeyPressed(sf::Keyboard::T))
@@ -43,7 +44,7 @@ void Board::Update() {
 	
 
 
-	if (m_startPos.x != -1 && m_startPos.y != -1 && MyClient::IsGameReady()) {
+	if (m_player1.m_startPos.x != -1 && m_player1.m_startPos.y != -1 && MyClient::IsGameReady()) {
 		// Drop the current piece down
 		DropPiece();
 		// Update Player 2 position (same thing as DropPiece();)
@@ -55,15 +56,15 @@ void Board::Update() {
 		if(m_player2.m_block != nullptr) {
 			for(int i = 0; i < 4; i++) {
 				Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
-				piece->ChangeColour(m_player2.m_block->m_colour);
+				//piece->ChangeColour(m_player2.m_block->m_colour);
 				piece->SetStatus(CurrentStatus::OTHER_P);
 			}
 		}
 
 		// Draw Player 1
 		for(int i = 0; i < 4; i++) {
-			Piece* piece = PositionInGrid(m_block->m_currShape[i] + m_blockPosition);
-			piece->ChangeColour(m_block->m_colour);
+			Piece* piece = PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition);
+			//piece->ChangeColour(m_block->m_colour);
 			piece->SetStatus(CurrentStatus::PLAYER);
 		}
 
@@ -78,28 +79,46 @@ void Board::Update() {
 	CheckPlayer2Stats();
 }
 
-// Draw Board
+/* Draw Board & Players Every Frame*/
 void Board::Draw(sf::RenderWindow & render) {
 	std::vector<Piece*>::iterator iter = m_grid.begin();
 	for (; iter != m_grid.end(); iter++) {
 		(*iter)->Draw(render);
 	}
 
+	for(int i = 0; i < 4; i++) {
+		if(m_player1.m_block != nullptr) {
+			Piece* piece = PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition);
+			if(piece != nullptr) {
+				piece->TempDraw(render, m_player1.m_block->m_colour);
+			}
+		}
+
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {
+			if(m_player2.m_block != nullptr) {
+				Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
+				if(piece != nullptr) {
+					piece->TempDraw(render, m_player2.m_block->m_colour);
+				}
+			}
+		}
+	}
+
+
 	// DEBUG
 	ShowStatus(render);
 }
 
+/* Check for Collisions & Move block position */
 bool Board::MovePiece(Direction dire) {
-	// CHECK WITH SERVER IF PIECE IS ABLE TO MOVE
-
-	if (m_startPos.x != 0 && m_startPos.y != 0 && CheckPlayer2Stats() == true) {
+	if (MyClient::IsGameReady()) {
 		switch (dire) {
 		case Direction::Left:
-			if (SideCollisionCheck((Shapes::MostLeftPosition(*m_block) + sf::Vector2f(-1, 0)) + m_blockPosition)) {
-				if (BlockCollisionCheck(*m_block, sf::Vector2f(-1, 0)) == false) {
+			if (SideCollisionCheck((Shapes::MostLeftPosition(*m_player1.m_block) + sf::Vector2f(-1, 0)) + m_player1.m_blockPosition)) {
+				if (BlockCollisionCheck(*m_player1.m_block, sf::Vector2f(-1, 0)) == false) {
 					// FIND MOST RIGHEST PIECE
 					ClearLastSpot();
-					m_blockPosition += sf::Vector2f(-1, 0);
+					m_player1.m_blockPosition += sf::Vector2f(-1, 0);
 					// CLEAR OLD SPOT
 
 					SendServerNewPosition();
@@ -107,10 +126,10 @@ bool Board::MovePiece(Direction dire) {
 			}
 			break;
 		case Direction::Right:
-			if (SideCollisionCheck((Shapes::MostRightPosition(*m_block) + sf::Vector2f(1, 0)) + m_blockPosition)) {
-				if (BlockCollisionCheck(*m_block, sf::Vector2f(1, 0)) == false) {
+			if (SideCollisionCheck((Shapes::MostRightPosition(*m_player1.m_block) + sf::Vector2f(1, 0)) + m_player1.m_blockPosition)) {
+				if (BlockCollisionCheck(*m_player1.m_block, sf::Vector2f(1, 0)) == false) {
 					ClearLastSpot();
-					m_blockPosition += sf::Vector2f(1, 0);
+					m_player1.m_blockPosition += sf::Vector2f(1, 0);
 
 					SendServerNewPosition();
 				}
@@ -118,10 +137,10 @@ bool Board::MovePiece(Direction dire) {
 			break;
 		case Direction::Down:
 			// FIND LOWEST POINT IN SHAPE + CURRENT POS + NEW MOVE SPOT
-			if (SideCollisionCheck((Shapes::LowestPosition(*m_block) + m_blockPosition) + sf::Vector2f(0, 1))) {
-				if (BlockCollisionCheck(*m_block, sf::Vector2f(0, 1)) == false) {
+			if (SideCollisionCheck((Shapes::LowestPosition(*m_player1.m_block) + m_player1.m_blockPosition) + sf::Vector2f(0, 1))) {
+				if (BlockCollisionCheck(*m_player1.m_block, sf::Vector2f(0, 1)) == false) {
 					ClearLastSpot();
-					m_blockPosition += sf::Vector2f(0, 1);
+					m_player1.m_blockPosition += sf::Vector2f(0, 1);
 
 					SendServerNewPosition();
 				}
@@ -133,22 +152,23 @@ bool Board::MovePiece(Direction dire) {
 	return false;
 }
 
+/* Check for Collisions & Rotate block */
 bool Board::RotatePiece(Shapes::Rotation rotate) {
 	// CHECK WITH SERVER
 
 	switch (rotate) {
 	case Shapes::Rotation::Right:
-		if (RotationCollisionCheck(Shapes::GetNextRotation(*m_block, rotate)) == true) {
+		if (RotationCollisionCheck(Shapes::GetNextRotation(*m_player1.m_block, rotate)) == true) {
 			ClearLastSpot();
-			Shapes::RotateBlock(*m_block, rotate);
+			Shapes::RotateBlock(*m_player1.m_block, rotate);
 
 			SendServerNewPosition();
 		}
 		break;
 	case Shapes::Rotation::Left:
-		if (RotationCollisionCheck(Shapes::GetNextRotation(*m_block, rotate)) == true) {
+		if (RotationCollisionCheck(Shapes::GetNextRotation(*m_player1.m_block, rotate)) == true) {
 			ClearLastSpot();
-			Shapes::RotateBlock(*m_block, rotate);
+			Shapes::RotateBlock(*m_player1.m_block, rotate);
 
 			SendServerNewPosition();
 		}
@@ -158,29 +178,33 @@ bool Board::RotatePiece(Shapes::Rotation rotate) {
 	return true;
 }
 
+/* Drop Piece down every few seconds*/
 void Board::DropPiece() {
 	m_currTime += DeltaTime::Time();
 	
 	if (m_currTime > DROPSPEED) {
-		m_currTime = 0;
+		m_currTime = 0.0f;
 
 		// If block has hit the bottom or another piece
-		if (GridCollisionCheck() == false || BlockCollisionCheck(*m_block, sf::Vector2f(0, 1)) == true) {
+		if (GridCollisionCheck() == false || BlockCollisionCheck(*m_player1.m_block, sf::Vector2f(0, 1)) == true) {
+			// BLOCK HAS STOPPED, PLACE IT
 			for (int i = 0; i < 4; i++) {
-				PositionInGrid(m_block->m_currShape[i] + m_blockPosition)->SetStatus(CurrentStatus::FILLED);
+				PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->SetStatus(CurrentStatus::FILLED);
+				PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->ChangeColour(m_player1.m_block->m_colour);
 			}
 
 			CreateNewPiece();
 		} else {
 			// BLOCK IS CLEAR DROP PIECE DOWN ONE
 			ClearLastSpot();
-			++m_blockPosition.y;
+			++m_player1.m_blockPosition.y;
 
 			SendServerNewPosition();
 		}
 	}
 }
 
+/* Returns piece pointer at position in grid */
 Piece* Board::PositionInGrid(sf::Vector2f position) {
 	int pos = position.x + (position.y * m_size.x);
 	if (pos > m_grid.size()) 
@@ -189,40 +213,43 @@ Piece* Board::PositionInGrid(sf::Vector2f position) {
 	return m_grid.at(pos);
 	// TODO check if out of range
 }
-
+/* Returns piece pointer at position in grid */
 Piece* Board::PositionInGrid(int x, int y) {
 	return PositionInGrid(sf::Vector2f(x, y));
 }
 
-// Clears player 1's last position
+/* Clears the board from players 1 last spot */
 void Board::ClearLastSpot() {
-	for (int i = 0; i < 4; i++) {
-		PositionInGrid(m_block->m_currShape[i] + m_blockPosition)->ChangeColour(ShapeColour::Colour::EMPTY);
-		PositionInGrid(m_block->m_currShape[i] + m_blockPosition)->SetStatus(CurrentStatus::EMPTY);
-	}
+	//for (int i = 0; i < 4; i++) {
+	//	PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->ChangeColour(Colour::EMPTY);
+	//	PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->SetStatus(CurrentStatus::EMPTY);
+	//}
 }
 
-// Clear player 2's last position
+/* Clears the board from players 2 last spot */
 void Board::ClearLastSpotPlayer2() {
-	for(int i = 0; i < 4; i++) {
-		if(m_player2.m_block != nullptr) {
-			Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
-			//if(piece->GetStatus() != CurrentStatus::FILLED) {
-				piece->ChangeColour(ShapeColour::Colour::EMPTY);
-				piece->SetStatus(CurrentStatus::EMPTY);
-			//}
-		}
-	}
+	//for(int i = 0; i < 4; i++) {
+	//	if(m_player2.m_block != nullptr) {
+	//		Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
+	//		//if(piece->GetStatus() != CurrentStatus::FILLED) {
+	//			piece->ChangeColour(Colour::EMPTY);
+	//			piece->SetStatus(CurrentStatus::EMPTY);
+	//		//}
+	//	}
+	//}
 }
 
+/* Once player 2 has 'Landed' place blocks */
 void Board::PlacePlayer2Piece() {
 	if(m_player2.m_block != nullptr) {
 		for(int i = 0; i < 4; i++) {
 			PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition)->SetStatus(CurrentStatus::FILLED);
+			PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition)->ChangeColour(m_player2.m_block->m_colour);
 		}
 	}
 }
 
+/* Check for collisions on side of the grid */
 bool Board::SideCollisionCheck(sf::Vector2f position) {
 	// Grid Side Collisions
 	if (position.x > m_size.x - 1 || position.x < 0)
@@ -240,7 +267,7 @@ bool Board::BlockCollisionCheck(Shapes::ShapeBase block, sf::Vector2f offset) {
 	Piece* piece;
 
 	for (int i = 0; i < 4; i++) {
-		position = block.m_currShape[i] + (m_blockPosition + offset);
+		position = block.m_currShape[i] + (m_player1.m_blockPosition + offset);
 		piece = PositionInGrid(sf::Vector2f(position));
 		if (piece == nullptr) return true; 
 
@@ -260,14 +287,15 @@ bool Board::BlockCollisionCheck(Shapes::ShapeBase block, sf::Vector2f offset) {
 	return false;
 }
 
+/* Check for rotation Collisions */
 bool Board::RotationCollisionCheck(Shapes::shape block) {
 	for(int i = 0; i < 4; i++) {
-		if((block[i].m_x + m_blockPosition.x) > m_size.x - 1 || (block[i].m_x + m_blockPosition.x) < 0)
+		if((block[i].m_x + m_player1.m_blockPosition.x) > m_size.x - 1 || (block[i].m_x + m_player1.m_blockPosition.x) < 0)
 			return false;
-		if((block[i].m_y + m_blockPosition.y) > m_size.y - 1 || (block[i].m_y + m_blockPosition.y) < 0)
+		if((block[i].m_y + m_player1.m_blockPosition.y) > m_size.y - 1 || (block[i].m_y + m_player1.m_blockPosition.y) < 0)
 			return false;
 
-		Piece* piece = PositionInGrid(sf::Vector2f(block[i].m_x, block[i].m_y) + m_blockPosition);
+		Piece* piece = PositionInGrid(sf::Vector2f(block[i].m_x, block[i].m_y) + m_player1.m_blockPosition);
 		if(piece->GetStatus() == CurrentStatus::FILLED || piece->GetStatus() == CurrentStatus::OTHER_P) {
 			return false;
 		}
@@ -278,10 +306,11 @@ bool Board::RotationCollisionCheck(Shapes::shape block) {
 	return true;
 }
 
+/* Checks each piece for side collisions */
 bool Board::GridCollisionCheck() {
 	// CHECK EVERY PIECE FOR A COLLISION WITH GRID BOTTOM / PIECES
 	for (int i = 0; i < 4; i++) {
-		sf::Vector2f position = (m_block->m_currShape[i] + m_blockPosition) + sf::Vector2f(0, 1);
+		sf::Vector2f position = (m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition) + sf::Vector2f(0, 1);
 		if (SideCollisionCheck(position) == false) {
 			return false;
 		}
@@ -292,22 +321,24 @@ bool Board::GridCollisionCheck() {
 	return true;
 }
 
+/* Generate a new block (shape) */
 void Board::CreateNewPiece() {
-	if (m_block != nullptr)
-		delete m_block;
+	if (m_player1.m_block != nullptr)
+		delete m_player1.m_block;
 	
-	m_block = Shapes::GetRandomBlock();
-	m_blockPosition = m_startPos;
+	m_player1.m_block = Shapes::GetRandomBlock();
+	m_player1.m_blockPosition = m_player1.m_startPos;
 
 	// TELL SERVER OUR NEW PIECE
 	SendServerNewBlock();
 }
 
+/* Get the starting position from the server */
 void Board::GetStartingPosition() {
 	Position pos = MyClient::GetStartPos();
 	if (pos.m_x != -1 && pos.m_y != -1) {
-		m_startPos = sf::Vector2f(pos.m_x, pos.m_y);
-		m_blockPosition = m_startPos;
+		m_player1.m_startPos = sf::Vector2f(pos.m_x, pos.m_y);
+		m_player1.m_blockPosition = m_player1.m_startPos;
 	}
 }
 
@@ -357,6 +388,7 @@ void Board::GetPlayer2StartPos() {
 	}
 }
 
+/* Get player 2's current position */
 void Board::GetPlayer2Position() {
 	// Get Player 2 Position
 	Position pos = MyClient::GetOthersPosition();
@@ -406,10 +438,10 @@ void Board::GetPlayer2Rotation() {
 
 void Board::SendServerNewBlock() {
 	UserPacket packet(MyClient::GetClient()->GetClientID(), GameMessages::ID_CLIENT_SEND_NEW_PIECE);
-	packet.AddToPacket((int)m_block->m_type);
+	packet.AddToPacket((int)m_player1.m_block->m_type);
 	packet.SendPacket(MyClient::GetClient()->GetPeerInterface());
 
-	switch(m_block->m_type) {
+	switch(m_player1.m_block->m_type) {
 	case Shapes::BlockType::NONE: break;
 	case Shapes::BlockType::O: printf("New Piece ID: O\n"); break;
 	case Shapes::BlockType::I: printf("New Piece ID: I\n"); break;
@@ -424,15 +456,15 @@ void Board::SendServerNewBlock() {
 
 void Board::SendServerNewPosition() {
 	UserPacket packet(MyClient::GetClient()->GetClientID(), GameMessages::ID_CLIENT_SEND_PLAYER_UPDATE);
-	packet.AddToPacket((int)m_block->m_type);
-	packet.AddToPacket(m_blockPosition.x);
-	packet.AddToPacket(m_blockPosition.y);
-	packet.AddToPacket(m_block->m_currRotation);
+	packet.AddToPacket((int)m_player1.m_block->m_type);
+	packet.AddToPacket(m_player1.m_blockPosition.x);
+	packet.AddToPacket(m_player1.m_blockPosition.y);
+	packet.AddToPacket(m_player1.m_block->m_currRotation);
 	packet.SendPacket(MyClient::GetClient()->GetPeerInterface());
 }
 
 
-
+// DEBUG ONLY
 void Board::ShowStatus(sf::RenderWindow &render) {
 	// Debug Status of the current piece
 	sf::Text p1Name = sf::Text("Player One", m_font);
@@ -443,8 +475,8 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 		// Player 1
 		sf::String blockPos = sf::String("Block ");
 		blockPos += std::to_string(i) + ": X ";
-		blockPos += std::to_string((int)(m_block->m_currShape[i].m_x + m_blockPosition.x)) + " | Y ";
-		blockPos += std::to_string((int)(m_block->m_currShape[i].m_y + m_blockPosition.y));
+		blockPos += std::to_string((int)(m_player1.m_block->m_currShape[i].m_x + m_player1.m_blockPosition.x)) + " | Y ";
+		blockPos += std::to_string((int)(m_player1.m_block->m_currShape[i].m_y + m_player1.m_blockPosition.y));
 
 		sf::Text text = sf::Text(blockPos, m_font);
 		text.setPosition(650, 30 + (i * 20));
@@ -468,17 +500,17 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 	}
 
 	// Returns the colours name in text
-	auto GetColourName = [](ShapeColour::Colour colour) -> sf::String {
+	auto GetColourName = [](Colour colour) -> sf::String {
 		switch(colour) {
-		case ShapeColour::Colour::NONE:		return sf::String("None");
-		case ShapeColour::Colour::EMPTY:	return sf::String("Empty");
-		case ShapeColour::Colour::GREEN:	return sf::String("Green");
-		case ShapeColour::Colour::RED:		return sf::String("Red");
-		case ShapeColour::Colour::BLUE:		return sf::String("Blue");
-		case ShapeColour::Colour::CYAN:		return sf::String("Cyan");
-		case ShapeColour::Colour::PURPLE:	return sf::String("Purple");
-		case ShapeColour::Colour::YELLOW:	return sf::String("Yellow");
-		case ShapeColour::Colour::ORANGE:	return sf::String("Orange");
+		case Colour::NONE:		return sf::String("None");
+		case Colour::EMPTY:		return sf::String("Empty");
+		case Colour::GREEN:		return sf::String("Green");
+		case Colour::RED:		return sf::String("Red");
+		case Colour::BLUE:		return sf::String("Blue");
+		case Colour::CYAN:		return sf::String("Cyan");
+		case Colour::PURPLE:	return sf::String("Purple");
+		case Colour::YELLOW:	return sf::String("Yellow");
+		case Colour::ORANGE:	return sf::String("Orange");
 		}
 	};
 
@@ -495,7 +527,7 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 	// Block Debug
 	for(int i = 0; i < 4; i++) {
 		// Player 1
-		Piece* piece = PositionInGrid(m_block->m_currShape[i] + m_blockPosition);
+		Piece* piece = PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition);
 		sf::String colour = sf::String("None");
 
 		if(piece != nullptr)

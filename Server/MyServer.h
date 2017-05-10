@@ -8,7 +8,6 @@
 #define	PLAYER_2_POS_X 6.0f
 #define PLAYER_2_POS_Y 3.0f
 
-// TEST
 struct Position {
 	Position(float a_x, float a_y) { x = a_x; y = a_y; }
 	float x = -1; float y = -1;

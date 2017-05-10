@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Piece.h"
+#include "ImageFactory.h"
 
 namespace Shapes {
 	// Shape Types
@@ -55,7 +56,7 @@ namespace Shapes {
 		// Current shape
 		std::vector<ShapeValues> m_currShape;
 
-		ShapeColour::Colour m_colour;
+		Colour m_colour;
 	};
 
 	// +X > | -X <
@@ -74,7 +75,7 @@ namespace Shapes {
 			m_totalRotations = 1;
 			m_currRotation = 0;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::YELLOW;
+			m_colour = Colour::YELLOW;
 		};
 
 	public:
@@ -88,7 +89,7 @@ namespace Shapes {
 			m_totalRotations = 2;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::CYAN;
+			m_colour = Colour::CYAN;
 		}
 
 	public:
@@ -103,7 +104,7 @@ namespace Shapes {
 			m_totalRotations = 2;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::GREEN;
+			m_colour = Colour::GREEN;
 		}
 
 	public:
@@ -118,7 +119,7 @@ namespace Shapes {
 			m_totalRotations = 2;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::RED;
+			m_colour = Colour::RED;
 		}
 
 	public:
@@ -133,7 +134,7 @@ namespace Shapes {
 			m_totalRotations = 4;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::ORANGE;
+			m_colour = Colour::ORANGE;
 		}
 
 	public:
@@ -150,7 +151,7 @@ namespace Shapes {
 			m_totalRotations = 4;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::BLUE;
+			m_colour = Colour::BLUE;
 		}
 
 	public:
@@ -167,7 +168,7 @@ namespace Shapes {
 			m_totalRotations = 4;
 			m_currRotation = 1;
 			m_currShape = shape1;
-			m_colour = ShapeColour::Colour::PURPLE;
+			m_colour = Colour::PURPLE;
 		}
 
 	public:

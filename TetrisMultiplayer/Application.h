@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseApplication.h"
+#include "ImageFactory.h"
 #include "InputManager.h"
 #include "GameWindow.h"
 #include "Input.h"

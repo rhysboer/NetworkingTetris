@@ -1,4 +1,4 @@
-#include "Piece.h"
+#include "Piece.h"\
 
 Piece::Piece(sf::Vector2f position, Colour texture, CurrentStatus status) {
 	m_currentColour = Colour::NONE;
@@ -81,6 +81,17 @@ void Piece::Draw(sf::RenderWindow &render) {
 	render.draw(m_sprite);
 }
 
+// Draw for 1 frame only with any color
+void Piece::TempDraw(sf::RenderWindow & render, Colour colour) {
+	sf::Sprite temp;
+	temp.setPosition(m_sprite.getPosition());
+	temp.setTexture(*ImageFactory::GetTexture(colour));
+
+	//m_sprite.setTexture(*ImageFactory::GetTexture(colour));
+	render.draw(temp);
+	//m_sprite.setTexture(*ImageFactory::GetTexture(m_currentColour));
+}
+
 void Piece::SetStatus(CurrentStatus status) {
 	m_status = status;
 }
@@ -98,29 +109,9 @@ sf::Vector2f Piece::GetPosition() {
 }
 
 void Piece::LoadNewTexture(Colour colour) {
-	if (colour == m_currentColour)
-		return;
+	//if (colour == m_currentColour)
+	//	return;
 
-	if (m_sprite.getTexture() != nullptr)
-		delete m_sprite.getTexture();
-
+	m_sprite.setTexture(*ImageFactory::GetTexture(colour));
 	m_currentColour = colour;
-
-	sf::Texture* newSprite = new sf::Texture;
-	std::string fileName = "bin/textures/";
-
-	switch (colour) {
-	case Colour::EMPTY:		fileName += "empty.png"; break;
-	case Colour::GREEN:		fileName += "green.png"; break;
-	case Colour::RED:		fileName += "red.png"; break;
-	case Colour::BLUE:		fileName += "blue.png"; break;
-	case Colour::CYAN:		fileName += "cyan.png"; break;
-	case Colour::PURPLE:	fileName += "purple.png"; break;
-	case Colour::YELLOW:	fileName += "yellow.png"; break;
-	case Colour::ORANGE:	fileName += "orange.png"; break;
-	default:				fileName += "error.png"; break; 
-	}
-
-	newSprite->loadFromFile(fileName);
-	m_sprite.setTexture(*newSprite);
 }

@@ -14,11 +14,13 @@ enum class Direction {
 	Left, Right, Down
 };
 
+// Board Size
 struct Size {
 	int x;
 	int y;
 };
 
+// Player
 struct Player {
 	sf::Vector2f m_startPos = sf::Vector2f(0, 0);
 	sf::Vector2f m_blockPosition;
@@ -88,14 +90,10 @@ private:
 	std::vector<Piece*> m_grid;
 	Size m_size;
 
-	// Player 1
-	Shapes::ShapeBase* m_block = nullptr;
-	sf::Vector2f m_blockPosition;
-	sf::Vector2f m_startPos = sf::Vector2f(0, 0);
-
 	bool m_readyPacketSent = false;
 
-	// Player 2
+	// Players
+	Player m_player1 = Player();
 	Player m_player2 = Player();
 
 	// Time

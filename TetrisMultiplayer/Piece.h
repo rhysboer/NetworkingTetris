@@ -1,4 +1,5 @@
 #pragma once
+#include "ImageFactory.h"
 #include "SFML\Graphics.hpp"
 
 enum class CurrentStatus {
@@ -8,6 +9,7 @@ enum class CurrentStatus {
 	OTHER_P, /* - Another Player */
 };
 
+/*
 namespace ShapeColour {
 	enum class Colour {
 		NONE,	// No texture at all!
@@ -21,8 +23,9 @@ namespace ShapeColour {
 		ORANGE
 	};
 }
+*/
 
-using namespace ShapeColour;
+//using namespace ShapeColour;
 
 class Piece {
 public:
@@ -35,6 +38,8 @@ public:
 
 	void ChangeColour(Colour texture);
 	void Draw(sf::RenderWindow &render);
+	void TempDraw(sf::RenderWindow &render, Colour colour);
+
 	void SetStatus(CurrentStatus status);
 
 	Colour GetPrevColour();

@@ -31,6 +31,11 @@ void Application::Draw() {
 
 void Application::OnStartUp() {
 	m_window = new GameWindow(WINDOW_TITLE, WINDOW_X, WINDOW_Y);
+
+	// load textures
+	ImageFactory::Init();
+	ImageFactory::LoadInTextures();
+
 	m_board = new Board(16, 21);
 	m_player = new Input();
 }
