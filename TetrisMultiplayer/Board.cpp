@@ -220,23 +220,23 @@ Piece* Board::PositionInGrid(int x, int y) {
 
 /* Clears the board from players 1 last spot */
 void Board::ClearLastSpot() {
-	//for (int i = 0; i < 4; i++) {
-	//	PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->ChangeColour(Colour::EMPTY);
-	//	PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->SetStatus(CurrentStatus::EMPTY);
-	//}
+	for (int i = 0; i < 4; i++) {
+		//sitionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->ChangeColour(Colour::EMPTY);
+		PositionInGrid(m_player1.m_block->m_currShape[i] + m_player1.m_blockPosition)->SetStatus(CurrentStatus::EMPTY);
+	}
 }
 
 /* Clears the board from players 2 last spot */
 void Board::ClearLastSpotPlayer2() {
-	//for(int i = 0; i < 4; i++) {
-	//	if(m_player2.m_block != nullptr) {
-	//		Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
-	//		//if(piece->GetStatus() != CurrentStatus::FILLED) {
-	//			piece->ChangeColour(Colour::EMPTY);
-	//			piece->SetStatus(CurrentStatus::EMPTY);
-	//		//}
-	//	}
-	//}
+	for(int i = 0; i < 4; i++) {
+		if(m_player2.m_block != nullptr) {
+			Piece* piece = PositionInGrid(m_player2.m_block->m_currShape[i] + m_player2.m_blockPosition);
+			//if(piece->GetStatus() != CurrentStatus::FILLED) {
+				//piece->ChangeColour(Colour::EMPTY);
+				piece->SetStatus(CurrentStatus::EMPTY);
+			//}
+		}
+	}
 }
 
 /* Once player 2 has 'Landed' place blocks */
@@ -514,7 +514,6 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 		}
 	};
 
-
 	// Debug Name
 	sf::Text name = sf::Text("Block Previous Colour", m_font);
 	name.setPosition(650, 150);
@@ -566,4 +565,16 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 
 	render.draw(p1Name);
 	render.draw(p2Name);
+
+	// Draw Debug Board
+	for(int x = 0; x < m_size.x; x++) {
+		for(int y = 0; y < m_size.y; y++) {
+			sf::String string(((m_grid.at(x + (y * m_size.x))->GetStatus() != CurrentStatus::EMPTY) ? "[0]" : "[  ]"));
+			sf::Text text(string, m_font);
+			text.setPosition(650 + (x * 15), 250 + (y * 15));
+			text.setCharacterSize(12);
+			render.draw(text);
+		}
+	}
+
 }

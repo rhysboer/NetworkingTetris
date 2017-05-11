@@ -50,10 +50,10 @@ private:
 
 	void LoadNewTexture(Colour texture);
 
-	sf::Sprite m_sprite;
-
 	Colour m_currentColour;
 	Colour m_prevColour;
+	
+	sf::Sprite m_sprite;
 
 	CurrentStatus m_status = CurrentStatus::EMPTY;
 	CurrentStatus m_prevStatus = CurrentStatus::EMPTY;

@@ -26,6 +26,7 @@ TODO:
 	[Priority: MED ] Fix server spam when its only 1 player			[]
 	 
 	 // MISC
+	[Priority: HIGH] Create Document								[]
 	[Priority: HIGH] Clean up Server & Client Code					[]
 	[Priority: MED ] Clean up Board Code							[]
 */

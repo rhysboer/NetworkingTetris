@@ -15,8 +15,9 @@ c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(298): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(482): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(495): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(540): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(554): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(539): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(553): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(574): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(528): warning C4715: 'Shapes::GetNextRotation': not all control paths return a value
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(303): warning C4715: 'Shapes::GetShapeFromRotation': not all control paths return a value
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\board.cpp(515): warning C4715: '<lambda_3f79b504d029bf2f183c5d733dca9149>::operator()': not all control paths return a value
