@@ -68,18 +68,5 @@ private:
 	Player m_playerTwo;
 };
 
-/*
-Method 1
-	have a list of blocks coming up next (max 3?)
-Method 2
-	have a thing that sends the client that the second player has collided with something and if both clients confirmed they did recreate a piece
-	(what if only one of the clients thing it has hit something?)
-*/
-
-/*
-Problem atm
-	both pieces are stopping when one of them hit the ground
-*/
-
 
 

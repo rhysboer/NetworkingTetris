@@ -12,13 +12,7 @@
 
 enum class Direction {
 	Left, Right, Down
-};
-
-// Board Size
-struct Size {
-	int x;
-	int y;
-};
+}; 
 
 // Player
 struct Player {
@@ -88,7 +82,7 @@ private:
 
 	// Variables
 	std::vector<Piece*> m_grid;
-	Size m_size;
+	sf::Vector2f m_size;
 
 	bool m_readyPacketSent = false;
 
@@ -98,6 +92,6 @@ private:
 
 	// Time
 	float m_currTime = 0;
-	const float DROPSPEED = 500.0f; // 0.7f
+	const float DROPSPEED = 0.7f;
 };
 

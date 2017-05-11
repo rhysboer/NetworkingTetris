@@ -9,7 +9,17 @@ c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(551): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(562): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(573): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
   main.cpp
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(190): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(210): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(228): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(246): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(266): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(286): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(306): warning C4018: '>': signed/unsigned mismatch
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(551): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(562): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\s171372\documents\visual studio 2015\projects\network\tetrismultiplayer\shapesarray.h(573): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+Network_d.lib(Server.obj) : warning LNK4099: PDB 'RakNet_Library.pdb' was not found with 'Network_d.lib(Server.obj)' or at 'C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Debug\RakNet_Library.pdb'; linking object as if no debug info
   Server.vcxproj -> C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Debug\Server.exe

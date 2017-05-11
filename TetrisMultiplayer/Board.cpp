@@ -576,5 +576,4 @@ void Board::ShowStatus(sf::RenderWindow &render) {
 			render.draw(text);
 		}
 	}
-
 }
