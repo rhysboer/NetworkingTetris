@@ -1,4 +1,26 @@
-﻿Raknet.lib(RakNetTypes.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+﻿  main.cpp
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(190): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(210): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(228): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(246): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(266): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(286): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(306): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(551): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(562): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(573): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  MyServer.cpp
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(190): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(210): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(228): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(246): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(266): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(286): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(306): warning C4018: '>': signed/unsigned mismatch
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(551): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(562): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\TetrisMultiplayer\ShapesArray.h(573): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Raknet.lib(RakNetTypes.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
 Raknet.lib(RakNetTypes.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
 Raknet.lib(BitStream.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
 Raknet.lib(BitStream.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
@@ -35,8 +57,6 @@ Raknet.lib(DS_ByteQueue.obj) : error LNK2038: mismatch detected for 'RuntimeLibr
 Raknet.lib(SocketLayer.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
 Raknet.lib(SocketLayer.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
 LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
-MyServer.obj : error LNK2001: unresolved external symbol "public: class RakNet::RakPeerInterface * __thiscall Server::GetPeerInterface(void)" (?GetPeerInterface@Server@@QAEPAVRakPeerInterface@RakNet@@XZ)
-MyServer.obj : error LNK2001: unresolved external symbol "public: void __thiscall Server::SendNewClientID(struct RakNet::SystemAddress)" (?SendNewClientID@Server@@QAEXUSystemAddress@RakNet@@@Z)
 Raknet.lib(DR_SHA1.obj) : error LNK2001: unresolved external symbol __imp___invalid_parameter
 Raknet.lib(DR_SHA1.obj) : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
-C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Release\Server.exe : fatal error LNK1120: 4 unresolved externals
+C:\Users\s171372\Documents\Visual Studio 2015\Projects\Network\Release\Server.exe : fatal error LNK1120: 2 unresolved externals
